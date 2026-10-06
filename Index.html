@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Realistic Farm - Workers, Family & Fruit Shop</title>
+
+<script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+}
+</style>
+</head>
+
+<body>
+
+<a-scene
+    background="color:#9ed8ff"
+    fog="type: exponential; color:#bfe7ff; density:0.008"
+>
+
+<!-- =========================================================
+     LIGHTING
+========================================================= -->
+
+<a-entity light="type: ambient; intensity: 1.2"></a-entity>
+
+<a-entity
+    light="type: directional;
+           intensity: 1.5;
+           castShadow: true"
+    position="-20 30 10">
+</a-entity>
+
+
+<!-- =========================================================
+     GROUND
+========================================================= -->
+
+<a-plane
+    rotation="-90 0 0"
+    width="80"
+    height="70"
+    color="#806b3f">
+</a-plane>
+
+
+<!-- =========================================================
+     FARM SOIL AREAS
+========================================================= -->
+
+<a-box
+    position="-20 0.05 -5"
+    width="30"
+    height="0.1"
+    depth="22"
+    color="#76542e">
+</a-box>
+
+<a-box
+    position="18 0.05 -5"
+    width="25"
+    height="0.1"
+    depth="22"
+    color="#76542e">
+</a-box>
+
+
+<!-- =========================================================
+     GOLDEN CROPS
+========================================================= -->
+
+<script>
+
+AFRAME.registerComponent('crop-field', {
+
+    init: function () {
+
+        const root = this.el;
+
+        /* LEFT FIELD */
+
+        for(let row = 0; row < 7; row++){
+
+            for(let col = 0; col < 15; col++){
+
+                const crop = document.createElement('a-cone');
+
+                crop.setAttribute(
+                    'position',
+                    `${-32 + col * 1.6} 0.9 ${-14 + row * 2.1}`
+                );
+
+                crop.setAttribute('radius-bottom','0.22');
+                crop.setAttribute('radius-top','0.04');
+                crop.setAttribute('height','1.8');
+
+                crop.setAttribute(
+                    'material',
+                    'color:#d6a82d; roughness:0.8'
+                );
+
+                root.appendChild(crop);
+            }
+        }
+
+        /* RIGHT FIELD */
+
+        for(let row = 0; row < 7; row++){
+
+            for(let col = 0; col < 13; col++){
+
+                const crop = document.createElement('a-cone');
+
+                crop.setAttribute(
+                    'position',
+                    `${8 + col * 1.6} 0.9 ${-14 + row * 2.1}`
+                );
+
+                crop.setAttribute('radius-bottom','0.22');
+                crop.setAttribute('radius-top','0.04');
+                crop.setAttribute('height','1.8');
+
+                crop.setAttribute(
+                    'material',
+                    'color:#d6a82d; roughness:0.8'
+                );
+
+                root.appendChild(crop);
+            }
+        }
+
+    }
+
+});
+
+</script>
+
+<a-entity crop-field></a-entity>
+
+
+<!-- =========================================================
+     IRRIGATION CANAL
+========================================================= -->
+
+<a-box
+    position="0 0.08 -8"
+    width="70"
+    height="0.15"
+    depth="2"
+    color="#4b3920">
+</a-box>
+
+<a-box
+    position="0 0.18 -8"
+    width="70"
+    height="0.06"
+    depth="1.4"
+    color="#258bd0"
+    material="opacity:0.85">
+</a-box>
+
+<a-box
+    position="-25 0.23 -8"
+    width="5"
+    height="0.03"
+    depth="0.25"
+    color="#d9f5ff"
+    animation="
+        property:position;
+        from:-25 0.23 -8;
+        to:25 0.23 -8;
+        dur:5000;
+        loop:true;
+        easing:linear
+    ">
+</a-box>
+
+
+<!-- =========================================================
+     WATER TANK
+========================================================= -->
+
+<a-cylinder
+    position="30 5 -18"
+    radius="3"
+    height="7"
+    color="#397ca5">
+</a-cylinder>
+
+<a-cylinder
+    position="30 8.55 -18"
+    radius="3.05"
+    height="0.3"
+    color="#294d64">
+</a-cylinder>
+
+<a-box
+    position="28 1.5 -18"
+    width="0.6"
+    height="3"
+    depth="0.6">
+</a-box>
+
+<a-box
+    position="32 1.5 -18"
+    width="0.6"
+    height="3"
+    depth="0.6">
+</a-box>
+
+<a-cylinder
+    position="26.5 1.8 -18"
+    rotation="0 0 90"
+    radius="0.22"
+    height="8"
+    color="#4a4a4a">
+</a-cylinder>
+
+
+<!-- =========================================================
+     POND
+========================================================= -->
+
+<a-cylinder
+    position="-30 0.12 17"
+    radius="6"
+    height="0.25"
+    color="#5b462c">
+</a-cylinder>
+
+<a-cylinder
+    position="-30 0.25 17"
+    radius="5.4"
+    height="0.08"
+    color="#2695d2"
+    material="opacity:0.85">
+</a-cylinder>
+
+
+<!-- =========================================================
+     REST HOUSE
+========================================================= -->
+
+<a-box
+    position="26 3 -1"
+    width="10"
+    height="6"
+    depth="8"
+    color="#d9c29c">
+</a-box>
+
+<a-cone
+    position="26 7 -1"
+    radius-bottom="7"
+    radius-top="0"
+    height="3"
+    color="#7b4932">
+</a-cone>
+
+<a-box
+    position="26 1.5 3.05"
+    width="2"
+    height="3"
+    depth="0.2"
+    color="#54351f">
+</a-box>
+
+<a-box
+    position="22 3 3.05"
+    width="2.5"
+    height="1.8"
+    depth="0.1"
+    color="#72b8d9">
+</a-box>
+
+<a-box
+    position="30 3 3.05"
+    width="2.5"
+    height="1.8"
+    depth="0.1"
+    color="#72b8d9">
+</a-box>
+
+
+<!-- =========================================================
+     STORAGE SHED
+========================================================= -->
+
+<a-box
+    position="14 2.5 15"
+    width="9"
+    height="5"
+    depth="7"
+    color="#a87445">
+</a-box>
+
+<a-box
+    position="14 1.5 18.55"
+    width="2"
+    height="3"
+    depth="0.2"
+    color="#4a2d1b">
+</a-box>
+
+
+<!-- =========================================================
+     TOOL SHED
+========================================================= -->
+
+<a-box
+    position="-16 2.5 15"
+    width="7"
+    height="5"
+    depth="6"
+    color="#9d7049">
+</a-box>
+
+
+<!-- =========================================================
+     TREES
+========================================================= -->
+
+<script>
+
+AFRAME.registerComponent('tree', {
+
+    init:function(){
+
+        const root=this.el;
+
+        const positions=[
+            [-36,0,-25],
+            [-27,0,-27],
+            [-8,0,-26],
+            [8,0,-27],
+            [38,0,-27],
+            [38,0,12],
+            [-38,0,10],
+            [-35,0,25],
+            [35,0,25]
+        ];
+
+        positions.forEach(p=>{
+
+            const trunk=document.createElement('a-cylinder');
+
+            trunk.setAttribute(
+                'position',
+                `${p[0]} 2 ${p[2]}`
+            );
+
+            trunk.setAttribute('radius','0.7');
+            trunk.setAttribute('height','4');
+            trunk.setAttribute('color','#654321');
+
+            root.appendChild(trunk);
+
+            const leaves=document.createElement('a-sphere');
+
+            leaves.setAttribute(
+                'position',
+                `${p[0]} 5 ${p[2]}`
+            );
+
+            leaves.setAttribute('radius','3');
+
+            leaves.setAttribute(
+                'material',
+                'color:#3e7d35; roughness:1'
+            );
+
+            root.appendChild(leaves);
+
+        });
+
+    }
+
+});
+
+</script>
+
+<a-entity tree></a-entity>
+
+
+<!-- =========================================================
+     FARM ROAD
+========================================================= -->
+
+<a-box
+    position="0 0.08 7"
+    width="70"
+    height="0.12"
+    depth="4"
+    color="#9a7449">
+</a-box>
+
+
+<!-- =========================================================
+     WORKER SYSTEM
+========================================================= -->
+
+<script>
+
+AFRAME.registerComponent('worker', {
+
+    schema:{
+        task:{type:'string'},
+        color:{type:'string',default:'#c88755'},
+        startX:{type:'number'},
+        startZ:{type:'number'},
+        workX:{type:'number'},
+        workZ:{type:'number'},
+        walk:{type:'boolean',default:false}
+    },
+
+    init:function(){
+
+        const d=this.data;
+        const el=this.el;
+
+        const body=document.createElement('a-cylinder');
+
+        body.setAttribute(
+            'position',
+            '0 1.7 0'
+        );
+
+        body.setAttribute('radius','0.42');
+        body.setAttribute('height','1.7');
+
+        body.setAttribute(
+            'material',
+            `color:${d.color}; roughness:0.8`
+        );
+
+        el.appendChild(body);
+
+
+        const head=document.createElement('a-sphere');
+
+        head.setAttribute(
+            'position',
+            '0 2.9 0'
+        );
+
+        head.setAttribute('radius','0.38');
+
+        head.setAttribute(
+            'material',
+            'color:#8b5a3c'
+        );
+
+        el.appendChild(head);
+
+
+        const hat=document.createElement('a-cylinder');
+
+        hat.setAttribute(
+            'position',
+            '0 3.28 0'
+        );
+
+        hat.setAttribute('radius','0.52');
+        hat.setAttribute('height','0.18');
+        hat.setAttribute('color','#c39b4b');
+
+        el.appendChild(hat);
+
+
+        [-0.22,0.22].forEach(x=>{
+
+            const leg=document.createElement('a-box');
+
+            leg.setAttribute(
+                'position',
+                `${x} 0.65 0`
+            );
+
+            leg.setAttribute('width','0.25');
+            leg.setAttribute('height','1.3');
+            leg.setAttribute('depth','0.3');
+            leg.setAttribute('color','#3e3e3e');
+
+            el.appendChild(leg);
+
+        });
+
+
+        this.leftArm=document.createElement('a-box');
+
+        this.leftArm.setAttribute(
+            'position',
+            '-0.65 1.9 0'
+        );
+
+        this.leftArm.setAttribute('width','0.22');
+        this.leftArm.setAttribute('height','1.3');
+        this.leftArm.setAttribute('depth','0.22');
+        this.leftArm.setAttribute('color',d.color);
+
+        el.appendChild(this.leftArm);
+
+
+        this.rightArm=document.createElement('a-box');
+
+        this.rightArm.setAttribute(
+            'position',
+            '0.65 1.9 0'
+        );
+
+        this.rightArm.setAttribute('width','0.22');
+        this.rightArm.setAttribute('height','1.3');
+        this.rightArm.setAttribute('depth','0.22');
+        this.rightArm.setAttribute('color',d.color);
+
+        el.appendChild(this.rightArm);
+
+
+        el.setAttribute(
+            'position',
+            `${d.startX} 0 ${d.startZ}`
+        );
+
+
+        if(d.walk){
+
+            setTimeout(()=>{
+
+                el.setAttribute(
+                    'animation__walk',
+                    `
+                    property:position;
+                    to:${d.workX} 0 ${d.workZ};
+                    dur:7000;
+                    easing:easeInOutQuad;
+                    loop:true;
+                    dir:alternate
+                    `
+                );
+
+            },500);
+
+        }
+
+        this.taskAnimation();
+
+    },
+
+
+    taskAnimation:function(){
+
+        const task=this.data.task;
+
+
+        if(task==='hoe'){
+
+            this.leftArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:-45 0 25;
+                to:70 0 25;
+                dur:900;
+                loop:true;
+                dir:alternate
+                `
+            );
+
+            this.rightArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:70 0 -25;
+                to:-45 0 -25;
+                dur:900;
+                loop:true;
+                dir:alternate
+                `
+            );
+        }
+
+
+        else if(task==='plant'){
+
+            this.leftArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:10 0 20;
+                to:85 0 20;
+                dur:1200;
+                loop:true;
+                dir:alternate
+                `
+            );
+
+            this.rightArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:10 0 -20;
+                to:85 0 -20;
+                dur:1200;
+                loop:true;
+                dir:alternate
+                `
+            );
+        }
+
+
+        else if(task==='water'){
+
+            this.rightArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:-20 0 -30;
+                to:80 0 -30;
+                dur:1400;
+                loop:true;
+                dir:alternate
+                `
+            );
+
+        }
+
+
+        else if(task==='harvest'){
+
+            this.leftArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:20 0 20;
+                to:100 0 20;
+                dur:1000;
+                loop:true;
+                dir:alternate
+                `
+            );
+
+            this.rightArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:100 0 -20;
+                to:20 0 -20;
+                dur:1000;
+                loop:true;
+                dir:alternate
+                `
+            );
+        }
+
+
+        else if(task==='carry'){
+
+            this.leftArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:0 0 15;
+                to:20 0 15;
+                dur:1200;
+                loop:true;
+                dir:alternate
+                `
+            );
+
+            this.rightArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:0 0 -15;
+                to:20 0 -15;
+                dur:1200;
+                loop:true;
+                dir:alternate
+                `
+            );
+        }
+
+
+        else if(task==='pump'){
+
+            this.rightArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:-70 0 0;
+                to:60 0 0;
+                dur:900;
+                loop:true;
+                dir:alternate
+                `
+            );
+        }
+
+
+        else if(task==='collect'){
+
+            this.leftArm.setAttribute(
+                'animation',
+                `
+                property:rotation;
+                from:0 0 20;
+                to:90 0 20;
+                dur:1300;
+                loop:true;
+                dir:alternate
+                `
+            );
+        }
+
+    }
+
+});
+
+</script>
+
+
+<!-- =========================================================
+     8 WORKERS
+========================================================= -->
+
+<a-entity
+    worker="
+        task:hoe;
+        startX:-25;
+        startZ:-13;
+        color:#b96f42;
+        walk:false
+    ">
+</a-entity>
+
+<a-entity
+    worker="
+        task:plant;
+        startX:-18;
+        startZ:-5;
+        color:#d08a52;
+        walk:false
+    ">
+</a-entity>
+
+<a-entity
+    worker="
+        task:water;
+        startX:-10;
+        startZ:-13;
+        color:#a9613c;
+        walk:false
+    ">
+</a-entity>
+
+<a-entity
+    worker="
+        task:harvest;
+        startX:10;
+        startZ:-12;
+        workX:15;
+        workZ:-7;
+        color:#c47c4b;
+        walk:true
+    ">
+</a-entity>
+
+<a-entity
+    worker="
+        task:collect;
+        startX:20;
+        startZ:-5;
+        workX:25;
+        workZ:-12;
+        color:#ad6840;
+        walk:true
+    ">
+</a-entity>
+
+<a-entity
+    worker="
+        task:carry;
+        startX:7;
+        startZ:10;
+        workX:13;
+        workZ:14;
+        color:#c98754;
+        walk:true
+    ">
+</a-entity>
+
+<a-entity
+    worker="
+        task:pump;
+        startX:30;
+        startZ:-12;
+        color:#b66d44;
+        walk:false
+    ">
+</a-entity>
+
+<a-entity
+    worker="
+        task:hoe;
+        startX:-2;
+        startZ:-4;
+        workX:-5;
+        workZ:-12;
+        color:#d18b55;
+        walk:true
+    ">
+</a-entity>
+
+
+<!-- =========================================================
+     WORKER LABELS
+========================================================= -->
+
+<a-text
+    value="HOEING"
+    position="-25 3.8 -13"
+    align="center"
+    scale="1.3 1.3 1.3"
+    color="#ffffff">
+</a-text>
+
+<a-text
+    value="PLANTING"
+    position="-18 3.8 -5"
+    align="center"
+    scale="1.3 1.3 1.3"
+    color="#ffffff">
+</a-text>
+
+<a-text
+    value="WATERING"
+    position="-10 3.8 -13"
+    align="center"
+    scale="1.3 1.3 1.3"
+    color="#ffffff">
+</a-text>
+
+<a-text
+    value="HARVESTING"
+    position="10 3.8 -12"
+    align="center"
+    scale="1.3 1.3 1.3"
+    color="#ffffff">
+</a-text>
+
+
+<!-- =========================================================
+     FAMILY SITTING OUTSIDE HOUSE
+========================================================= -->
+
+<a-box
+    position="26 0.9 7"
+    width="6"
+    height="0.35"
+    depth="1.2"
+    color="#70452b">
+</a-box>
+
+<a-box
+    position="24 0.35 6.7"
+    width="0.3"
+    height="1.1"
+    depth="0.3"
+    color="#54351f">
+</a-box>
+
+<a-box
+    position="28 0.35 6.7"
+    width="0.3"
+    height="1.1"
+    depth="0.3"
+    color="#54351f">
+</a-box>
+
+
+<!-- FAMILY MEMBER 1 -->
+
+<a-entity position="24.2 0 7">
+
+    <a-cylinder
+        position="0 1.45 0"
+        radius="0.38"
+        height="1.45"
+        color="#b85f3e">
+    </a-cylinder>
+
+    <a-sphere
+        position="0 2.55 0"
+        radius="0.36"
+        color="#8b5a3c">
+    </a-sphere>
+
+    <a-sphere
+        position="0 2.75 0"
+        radius="0.37"
+        color="#292019"
+        scale="1 0.55 1">
+    </a-sphere>
+
+    <a-box
+        position="-0.18 0.45 0"
+        width="0.25"
+        height="0.9"
+        depth="0.25"
+        color="#333333">
+    </a-box>
+
+    <a-box
+        position="0.18 0.45 0"
+        width="0.25"
+        height="0.9"
+        depth="0.25"
+        color="#333333">
+    </a-box>
+
+    <a-box
+        position="0.55 1.65 -0.05"
+        width="0.2"
+        height="1"
+        depth="0.2"
+        color="#b85f3e"
+        rotation="0 0 -55"
+        animation="
+            property:rotation;
+            from:0 0 -55;
+            to:0 0 -25;
+            dur:1400;
+            loop:true;
+            dir:alternate">
+    </a-box>
+
+</a-entity>
+
+
+<!-- FAMILY MEMBER 2 -->
+
+<a-entity position="27.8 0 7">
+
+    <a-cylinder
+        position="0 1.45 0"
+        radius="0.38"
+        height="1.45"
+        color="#557b9d">
+    </a-cylinder>
+
+    <a-sphere
+        position="0 2.55 0"
+        radius="0.36"
+        color="#9a6847">
+    </a-sphere>
+
+    <a-sphere
+        position="0 2.75 0"
+        radius="0.37"
+        color="#211b18"
+        scale="1 0.55 1">
+    </a-sphere>
+
+    <a-box
+        position="-0.18 0.45 0"
+        width="0.25"
+        height="0.9"
+        depth="0.25"
+        color="#333333">
+    </a-box>
+
+    <a-box
+        position="0.18 0.45 0"
+        width="0.25"
+        height="0.9"
+        depth="0.25"
+        color="#333333">
+    </a-box>
+
+    <a-box
+        position="-0.55 1.65 -0.05"
+        width="0.2"
+        height="1"
+        depth="0.2"
+        color="#557b9d"
+        rotation="0 0 55"
+        animation="
+            property:rotation;
+            from:0 0 55;
+            to:0 0 25;
+            dur:1600;
+            loop:true;
+            dir:alternate">
+    </a-box>
+
+</a-entity>
+
+
+<!-- CHILD -->
+
+<a-entity
+    position="26 0 7.8"
+    scale="0.75 0.75 0.75">
+
+    <a-cylinder
+        position="0 1.45 0"
+        radius="0.35"
+        height="1.3"
+        color="#d39b42">
+    </a-cylinder>
+
+    <a-sphere
+        position="0 2.45 0"
+        radius="0.34"
+        color="#8d5b3d">
+    </a-sphere>
+
+    <a-sphere
+        position="0 2.65 0"
+        radius="0.35"
+        color="#241c17"
+        scale="1 0.55 1">
+    </a-sphere>
+
+    <a-box
+        position="-0.5 1.55 0"
+        width="0.18"
+        height="0.85"
+        depth="0.18"
+        color="#d39b42"
+        rotation="0 0 35">
+    </a-box>
+
+    <a-box
+        position="0.5 1.55 0"
+        width="0.18"
+        height="0.85"
+        depth="0.18"
+        color="#d39b42"
+        rotation="0 0 -35">
+    </a-box>
+
+</a-entity>
+
+
+<!-- FAMILY TEA TABLE -->
+
+<a-cylinder
+    position="26 0.75 9"
+    radius="1.1"
+    height="0.18"
+    color="#70452b">
+</a-cylinder>
+
+<a-cylinder
+    position="26 0.35 9"
+    radius="0.12"
+    height="0.8"
+    color="#54351f">
+</a-cylinder>
+
+<a-cylinder
+    position="25.5 0.95 9"
+    radius="0.16"
+    height="0.18"
+    color="#eeeeee">
+</a-cylinder>
+
+<a-cylinder
+    position="26.5 0.95 9"
+    radius="0.16"
+    height="0.18"
+    color="#eeeeee">
+</a-cylinder>
+
+<a-text
+    value="Family Time"
+    position="26 3.5 7"
+    align="center"
+    scale="1.2 1.2 1.2"
+    color="#ffffff">
+</a-text>
+
+
+<!-- =========================================================
+     FRUIT SHOP
+========================================================= -->
+
+<!-- SHOP FLOOR -->
+
+<a-box
+    position="-24 0.12 11"
+    width="13"
+    height="0.2"
+    depth="9"
+    color="#76502f">
+</a-box>
+
+
+<!-- SHOP BACK WALL -->
+
+<a-box
+    position="-24 3.2 15"
+    width="13"
+    height="6"
+    depth="0.35"
+    color="#c58b52">
+</a-box>
+
+
+<!-- SHOP SIDE WALLS -->
+
+<a-box
+    position="-30.4 3.2 11"
+    width="0.35"
+    height="6"
+    depth="8"
+    color="#b97945">
+</a-box>
+
+<a-box
+    position="-17.6 3.2 11"
+    width="0.35"
+    height="6"
+    depth="8"
+    color="#b97945">
+</a-box>
+
+
+<!-- SHOP ROOF -->
+
+<a-box
+    position="-24 6.5 11"
+    width="14"
+    height="0.45"
+    depth="9"
+    color="#8a4e32">
+</a-box>
+
+
+<!-- SHOP SIGN -->
+
+<a-box
+    position="-24 5.5 14.75"
+    width="8"
+    height="1.3"
+    depth="0.15"
+    color="#f0c24b">
+</a-box>
+
+<a-text
+    value="FRESH FARM FRUITS"
+    position="-24 5.5 14.55"
+    align="center"
+    color="#542d18"
+    scale="1.3 1.3 1.3">
+</a-text>
+
+
+<!-- =========================================================
+     FRUIT COUNTER
+========================================================= -->
+
+<a-box
+    position="-24 1.4 9"
+    width="11"
+    height="1.5"
+    depth="1.3"
+    color="#70452b">
+</a-box>
+
+
+<!-- COUNTER TOP -->
+
+<a-box
+    position="-24 2.2 9"
+    width="11.5"
+    height="0.25"
+    depth="1.5"
+    color="#9b6237">
+</a-box>
+
+
+<!-- =========================================================
+     FRUIT BASKETS
+========================================================= -->
+
+<!-- APPLES -->
+
+<a-cylinder
+    position="-28 2.65 8.8"
+    radius="1"
+    height="0.25"
+    color="#70452b">
+</a-cylinder>
+
+<a-sphere
+    position="-28.4 3.1 8.8"
+    radius="0.32"
+    color="#d62828">
+</a-sphere>
+
+<a-sphere
+    position="-27.8 3.15 8.8"
+    radius="0.32"
+    color="#e33b32">
+</a-sphere>
+
+<a-sphere
+    position="-28.1 3.2 9.2"
+    radius="0.32"
+    color="#c91f28">
+</a-sphere>
+
+
+<!-- ORANGES -->
+
+<a-cylinder
+    position="-25.5 2.65 8.8"
+    radius="1"
+    height="0.25"
+    color="#70452b">
+</a-cylinder>
+
+<a-sphere
+    position="-25.9 3.05 8.8"
+    radius="0.3"
+    color="#f28c28">
+</a-sphere>
+
+<a-sphere
+    position="-25.3 3.15 8.8"
+    radius="0.3"
+    color="#ff9d2e">
+</a-sphere>
+
+<a-sphere
+    position="-25.6 3.2 9.15"
+    radius="0.3"
+    color="#e97a1b">
+</a-sphere>
+
+
+<!-- MANGOES -->
+
+<a-cylinder
+    position="-23 2.65 8.8"
+    radius="1"
+    height="0.25"
+    color="#70452b">
+</a-cylinder>
+
+<a-sphere
+    position="-23.4 3.05 8.8"
+    radius="0.32"
+    scale="1 0.75 1"
+    color="#e8b82f">
+</a-sphere>
+
+<a-sphere
+    position="-22.8 3.1 8.8"
+    radius="0.32"
+    scale="1 0.75 1"
+    color="#f0a928">
+</a-sphere>
+
+<a-sphere
+    position="-23.1 3.2 9.15"
+    radius="0.32"
+    scale="1 0.75 1"
+    color="#d99820">
+</a-sphere>
+
+
+<!-- BANANAS -->
+
+<a-cylinder
+    position="-20.5 2.65 8.8"
+    radius="1"
+    height="0.25"
+    color="#70452b">
+</a-cylinder>
+
+<a-torus
+    position="-20.5 3.15 8.8"
+    radius="0.45"
+    radius-tubular="0.13"
+    rotation="90 0 0"
+    color="#f5d547">
+</a-torus>
+
+<a-torus
+    position="-20 3.25 8.8"
+    radius="0.45"
+    radius-tubular="0.13"
+    rotation="90 0 0"
+    color="#e9c83f">
+</a-torus>
+
+
+<!-- WATERMELONS -->
+
+<a-cylinder
+    position="-18.5 2.8 8.8"
+    radius="0.8"
+    height="0.8"
+    color="#3d9145">
+</a-cylinder>
+
+<a-cylinder
+    position="-18.5 2.8 8.42"
+    radius="0.65"
+    height="0.05"
+    color="#d83232">
+</a-cylinder>
+
+
+<!-- =========================================================
+     SHOPKEEPER
+========================================================= -->
+
+<a-entity position="-24 0 7.4">
+
+    <!-- BODY -->
+
+    <a-cylinder
+        position="0 1.55 0"
+        radius="0.42"
+        height="1.6"
+        color="#3e7650">
+    </a-cylinder>
+
+    <!-- HEAD -->
+
+    <a-sphere
+        position="0 2.7 0"
+        radius="0.38"
+        color="#8b5a3c">
+    </a-sphere>
+
+    <!-- HAIR -->
+
+    <a-sphere
+        position="0 2.95 0"
+        radius="0.38"
+        scale="1 0.55 1"
+        color="#241b17">
+    </a-sphere>
+
+    <!-- LEGS -->
+
+    <a-box
+        position="-0.2 0.6 0"
+        width="0.25"
+        height="1.2"
+        depth="0.25"
+        color="#343434">
+    </a-box>
+
+    <a-box
+        position="0.2 0.6 0"
+        width="0.25"
+        height="1.2"
+        depth="0.25"
+        color="#343434">
+    </a-box>
+
+    <!-- ARM -->
+
+    <a-box
+        position="0.58 1.65 0"
+        width="0.2"
+        height="1"
+        depth="0.2"
+        color="#3e7650"
+        rotation="0 0 -45"
+        animation="
+            property:rotation;
+            from:0 0 -45;
+            to:0 0 -20;
+            dur:1200;
+            loop:true;
+            dir:alternate">
+    </a-box>
+
+</a-entity>
+
+
+<!-- =========================================================
+     CUSTOMER 1 - BUYING FRUIT
+========================================================= -->
+
+<a-entity position="-27 0 6.8">
+
+    <a-cylinder
+        position="0 1.55 0"
+        radius="0.4"
+        height="1.6"
+        color="#5278a0">
+    </a-cylinder>
+
+    <a-sphere
+        position="0 2.7 0"
+        radius="0.38"
+        color="#9a6847">
+    </a-sphere>
+
+    <a-sphere
+        position="0 2.95 0"
+        radius="0.38"
+        scale="1 0.55 1"
+        color="#2b211b">
+    </a-sphere>
+
+    <!-- HAND EXTENDED TOWARD FRUIT -->
+
+    <a-box
+        position="0.55 1.75 -0.1"
+        width="0.2"
+        height="1"
+        depth="0.2"
+        color="#5278a0"
+        rotation="0 0 -70"
+        animation="
+            property:rotation;
+            from:0 0 -70;
+            to:0 0 -50;
+            dur:1300;
+            loop:true;
+            dir:alternate">
+    </a-box>
+
+</a-entity>
+
+
+<!-- =========================================================
+     CUSTOMER 2 - CARRYING BASKET
+========================================================= -->
+
+<a-entity position="-30 0 9.5">
+
+    <a-cylinder
+        position="0 1.55 0"
+        radius="0.4"
+        height="1.6"
+        color="#b45f46">
+    </a-cylinder>
+
+    <a-sphere
+        position="0 2.7 0"
+        radius="0.38"
+        color="#86573e">
+    </a-sphere>
+
+    <a-sphere
+        position="0 2.95 0"
+        radius="0.38"
+        scale="1 0.55 1"
+        color="#241b17">
+    </a-sphere>
+
+    <!-- BASKET -->
+
+    <a-cylinder
+        position="0.65 0.75 0"
+        radius="0.5"
+        height="0.55"
+        color="#9a6338">
+    </a-cylinder>
+
+    <a-torus
+        position="0.65 1.1 0"
+        radius="0.45"
+        radius-tubular="0.08"
+        color="#70452b">
+    </a-torus>
+
+</a-entity>
+
+
+<!-- =========================================================
+     CUSTOMER 3 - RECEIVING FRUIT
+========================================================= -->
+
+<a-entity position="-21 0 6.7">
+
+    <a-cylinder
+        position="0 1.55 0"
+        radius="0.4"
+        height="1.6"
+        color="#8a6094">
+    </a-cylinder>
+
+    <a-sphere
+        position="0 2.7 0"
+        radius="0.38"
+        color="#936445">
+    </a-sphere>
+
+    <a-sphere
+        position="0 2.95 0"
+        radius="0.38"
+        scale="1 0.55 1"
+        color="#35231c">
+    </a-sphere>
+
+    <!-- RECEIVING HAND -->
+
+    <a-box
+        position="-0.55 1.65 -0.15"
+        width="0.2"
+        height="1"
+        depth="0.2"
+        color="#8a6094"
+        rotation="0 0 60"
+        animation="
+            property:rotation;
+            from:0 0 60;
+            to:0 0 35;
+            dur:1100;
+            loop:true;
+            dir:alternate">
+    </a-box>
+
+</a-entity>
+
+
+<!-- =========================================================
+     FRUIT SHOP ACTIVITY LABEL
+========================================================= -->
+
+<a-text
+    value="Fresh Fruit Shop"
+    position="-24 7.5 11"
+    align="center"
+    scale="1.5 1.5 1.5"
+    color="#ffffff">
+</a-text>
+
+
+<!-- =========================================================
+     CAMERA
+========================================================= -->
+
+<a-entity
+    position="0 8 35"
+    camera
+    look-controls
+    wasd-controls="acceleration:40">
+</a-entity>
+
+
+<!-- =========================================================
+     SKY
+========================================================= -->
+
+<a-sky color="#9ed8ff"></a-sky>
+
+</a-scene>
+
+</body>
+</html>
